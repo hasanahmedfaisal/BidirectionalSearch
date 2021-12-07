@@ -2,7 +2,7 @@
 
 This repository implements bidirectional search as described in the paper **"Bidirectional Search That Is Guaranteed to Meet in the Middle"** by Robert C. Holte, Ariel Felner, Guni Sharon and Nathan R. Sturtevant in the Proceedings of the Thirtieth AAAI Conference on Artificial Intelligence (AAAI-16).
 
-The code for the search can be found in [search.py](https://github.com/deepakshi-mittal/bds_search/blob/BDSFinalProject/search/search.py)
+The code for the search can be found in [search.py](https://github.com/hasanahmedfaisal/BidirectionalSearch/blob/main/search/search.py)
 
 In order to see pacman in action, the following are commands for six different mazes:
 ```

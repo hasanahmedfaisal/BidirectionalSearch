@@ -274,9 +274,8 @@ def biDirectionalBruteForce(problem):
             if(problem.isGoalStateForBidirectional(currentNode, visitedEnd)):
                 return visitedStart[currentNode] + getReversePath(visitedEnd[currentNode])
             #exploring neighbours
-            for successor in problem.getSuccessors(currentNode):
-                if(successor[0] in visitedStart):
-                    continue
+            nodesNotInVisitedStart = [x for x in problem.getSuccessors(currentNode) if x[0] not in visitedStart]
+            for successor in nodesNotInVisitedStart:
                 frontierStackStart.push(successor[0])
                 visitedStart[successor[0]] = list(visitedStart[currentNode]) + [successor[1]]  #appending next action
         
@@ -285,9 +284,8 @@ def biDirectionalBruteForce(problem):
             if(problem.isGoalStateForBidirectional(currentNodeEnd, visitedStart)):
                 return  getReversePath(visitedStart[currentNodeEnd]) + visitedEnd[currentNodeEnd]
             #exploring neighbours
-            for successor in problem.getSuccessors(currentNodeEnd):
-                if(successor[0] in visitedEnd):
-                    continue
+            nodesNotInVisitedEnd = [x for x in problem.getSuccessors(currentNodeEnd) if x[0] not in visitedEnd]
+            for successor in nodesNotInVisitedEnd:
                 frontierStackEnd.push(successor[0])
                 visitedEnd[successor[0]] = list(visitedEnd[currentNodeEnd]) + [successor[1]]  #appending next action
 
@@ -319,12 +317,10 @@ def biDirectionalMM(problem, heuristic):
             return visitedStart[currentNode] + getReversePath(visitedEnd[currentNode]) 
         
         #exploring neighbours
-
-        for state in problem.getSuccessors(currentNode): 
-            if state[0] in visitedStart:
-                continue
-            visitedStart[state[0]] = list(visitedStart[currentNode]) + [state[1]]
-            frontierStackStart.push(state[0], (problem.getCostOfActions(visitedStart[state[0]]) + heuristic(state[0], problem, "goalState")))
+        nodesNotInVisitedStart = [x for x in problem.getSuccessors(currentNode) if x[0] not in visitedStart]
+        for successor in nodesNotInVisitedStart:
+            visitedStart[successor[0]] = list(visitedStart[currentNode]) + [successor[1]]
+            frontierStackStart.push(successor[0], (problem.getCostOfActions(visitedStart[successor[0]]) + heuristic(successor[0], problem, "goalState")))
 
         currentNodeEnd = frontierStackEnd.pop()
 
@@ -332,13 +328,11 @@ def biDirectionalMM(problem, heuristic):
             return visitedStart[currentNodeEnd] + getReversePath(visitedEnd[currentNodeEnd])
 
         #exploring neighbours
-
-        for state in problem.getSuccessors(currentNodeEnd):
-            if state[0] in visitedEnd:
-                continue
-            visitedEnd[state[0]] = list(visitedEnd[currentNodeEnd]) + [state[1]]
-            frontierStackEnd.push(state[0],
-                    (problem.getCostOfActions(visitedEnd[state[0]]) + heuristic(state[0], problem, "startState")))
+        nodesNotInVisitedEnd = [x for x in problem.getSuccessors(currentNodeEnd) if x[0] not in visitedEnd]
+        for successor in nodesNotInVisitedEnd:
+            visitedEnd[successor[0]] = list(visitedEnd[currentNodeEnd]) + [successor[1]]
+            frontierStackEnd.push(successor[0],
+                    (problem.getCostOfActions(visitedEnd[successor[0]]) + heuristic(successor[0], problem, "startState")))
 
 # Abbreviations
 bfs = breadthFirstSearch

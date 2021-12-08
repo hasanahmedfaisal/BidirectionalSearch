@@ -34,3 +34,5 @@ python pacman.py -l contoursMaze -p SearchAgent -a fn=bdMM,heuristic=foodHeurist
 ```
 
 Implemented using Python 3.6
+
+The github link can be found [here](https://github.com/hasanahmedfaisal/BidirectionalSearch)
